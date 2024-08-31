@@ -11,29 +11,43 @@ html = """
 <nav class="menu-box-1" id="menu-box">
   <ul>
     <li>
-      <a class="never" href="https://www.naver.com">네이버로 이동</a>
+      <a class="menu-item-text" href="https://www.naver.com">네이버로 이동</a>
     </li>
     <li>
-      <a class="google" href="https://www.google.com">구글로 이동</a>
+      <a class="menu-item-text" href="https://www.google.com">구글로 이동</a>
     </li>
     <li>
-      <a class="daum" href="https://www.daum.net">다음으로 이동</a>
+      <a class="menu-item-text" href="https://www.daum.net">다음으로 이동</a>
     </li>
-  <ul>
+    <ul>
 </nav>       
 """
 #HTML 파싱
 bs = BeautifulSoup(html, 'html.parser')
 
-# select, select_one: 내그, 클래스, id로 HTML을 검색
-#bs.select('a') :html 상에 있는 모든 'a' 엘리민드를 검색(a m.n gana chigat)
-#print(bs.select('a'))
-#print(bs.select_one('.naver'))
- #print(bs)
+# print(bs.select_one('.menu-item-text')) ->클래스가 "menu-item-text" 인 녀석을 선텍
+#print(bs.select_one('.menu-item-text')) ->"menu-item-text" классы бар бирин тандаңыз
+
+# print(bs.select_one('.menu-item-text')) ->id가 "menu-item-text" 인 녀석을 선텍
+
+# find, find_all
+# find : 조건과 일치하는 모든 요소중에 검색 된 첫번째 요소를 반환
+# Шартка дал келген бардык элементтердин арасынан табылган биринчи элементти кайтарат.
+print(bs.find('a', class_='menu-item-text'))
+
+# find_all : 조건과 일치하는 모든 요소의 리스트를 반환
+# find_all: Шартка дал келген бардык элементтердин тизмесин кайтарат
+print(bs.find_all('a', class_='menu-item-text'))
+
+menu_item_text = bs.find_all('a', class_='menu-item-text')
+
+for idx, el in enumerate(menu_item_text):
+  no =idx + 1
+  print(f"{no} : {el.get_text()}")
+  
+print(bs.find(id="menu-box"))  
+print(bs.find('nav', attrs={id : "menu-box"}))   
  
-a_tags = bs. select('a')
-for a_tag in a_tags:
-  print(a_tag.get_text())
 
 
 '''
